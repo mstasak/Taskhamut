@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "Taskhamut (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "Taskhamut (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
