@@ -1,4 +1,4 @@
-﻿namespace Taskhamut.Models;
+﻿namespace Taskhamut.Core.Models;
 
 public class LocalSettingsOptions
 {

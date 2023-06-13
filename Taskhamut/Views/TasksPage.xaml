@@ -4,9 +4,60 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    
+    mc:Ignorable="d" >
+
+    <Page.Resources>
+        <DataTemplate x:Key="ContactListViewTemplate" x:DataType="viewModel.Task">
+            <TextBlock Text="{x:Bind Name}" x:Phase="1" Margin="0,5,0,5"/>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid x:Name="ContentArea">
-        
+
+        <StackPanel Orientation="Vertical" Spacing="20">
+            <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left"
+                    Spacing="20">
+                <!--BorderBrush="Red" BorderThickness="1"-->
+
+                <!-- left side: Label, Searchbox, Category dropdowncheckboxlist, Task list (new, delete, etc) -->
+                <StackPanel Orientation="Vertical" BorderBrush="Blue" BorderThickness="2" Padding="20" Spacing="20">
+                    <TextBlock Text="nn Tasks" />
+                    <StackPanel Orientation="Horizontal" Margin="20" Spacing="20" VerticalAlignment="Top">
+                        <TextBlock Text="placeholder: search" />
+                        <TextBlock Text="placeholder: category filter" />
+                    </StackPanel>
+                    <TextBlock Text="placeholder: tasks list..." />
+                    <TextBlock Text="placeholder: button bar [new][delete][random pick]" />
+                </StackPanel>
+
+                <!-- right side: Label, Task Details, buttonbar -->
+                <StackPanel Orientation="Vertical" BorderBrush="Blue" BorderThickness="2" Padding="20" Spacing="20">
+                    <TextBlock Text="Selected Task Details" />
+                    <TextBlock Text="placeholder: task field summary" />
+                    <TextBlock Text="placeholder: task field description" />
+                    <TextBlock Text="placeholder: task field category" />
+                    <TextBlock Text="placeholder: task field completion status" />
+                    <TextBlock Text="placeholder: button bar [save][cancel]?" />
+                </StackPanel>
+
+
+            </StackPanel>
+            <Rectangle Fill="Aquamarine" Width="1200" Height="100"></Rectangle>
+
+            <ListView
+                x:Name="BaseExample"
+                ItemTemplate="{StaticResource ContactListViewTemplate}"
+                BorderThickness="1"
+                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                Width="350"
+                Height="400"
+                HorizontalAlignment="Left"
+                />
+
+            <!-- In this example, the ListView's ItemTemplate property is bound to a data template (shown below)
+called ContactListViewTemplate, defined in a Page.Resources section. -->
+
+        </StackPanel>
     </Grid>
 </Page>

@@ -7,7 +7,7 @@ using Taskhamut.Contracts.Services;
 using Taskhamut.Core.Contracts.Services;
 using Taskhamut.Core.Services;
 using Taskhamut.Helpers;
-using Taskhamut.Models;
+using Taskhamut.Core.Models;
 using Taskhamut.Notifications;
 using Taskhamut.Services;
 using Taskhamut.ViewModels;

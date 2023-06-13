@@ -4,11 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taskhamut.Models;
-public class CategoryEntity
+namespace Taskhamut.Core.Models;
+public class UserEntity
 {
-    public int CategoryId
-    {
-        get; set;
-    }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taskhamut.Models;
+namespace Taskhamut.Core.Models;
 
 // Model for the SampleDataService. Replace with your own model.
 public class TaskEntity
