@@ -10,26 +10,33 @@
 
     <Page.Resources>
         <DataTemplate x:Key="TaskListItemTemplate" x:DataType="models:TaskEntity">
-            <TextBlock Text="{x:Bind TaskName}" x:Phase="1" Margin="0,5,0,5"/>
+            <Grid>
+                <TextBlock Text="{x:Bind TaskName}" x:Phase="1" Margin="0,5,0,5"/>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="TaskDetailItemTemplate" x:DataType="models:TaskEntity">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height = "40"></RowDefinition>
+                    <RowDefinition Height = "40"></RowDefinition>
+                    <RowDefinition Height = "40"></RowDefinition>
+                    <RowDefinition Height = "40"></RowDefinition>
+                    <RowDefinition Height = "40"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width= "300"></ColumnDefinition>
+                    <ColumnDefinition Width= "300"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind TaskName}" x:Phase="1" Margin="0,5,0,5"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Summary}" x:Phase="1" Margin="0,5,0,5"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Detail}" x:Phase="1" Margin="0,5,0,5"/>
-            <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind Completed}" x:Phase="1" Margin="0,5,0,5"/>
-            <TextBlock  Grid.Row="4" Grid.Column="1" Text="{x:Bind TaskId}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind TaskName}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Summary:" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Summary}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Details:" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Detail}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Completed:" Margin="0,5,0,5"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind Completed}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Task ID::" Margin="0,5,0,5"/>
+                <TextBlock  Grid.Row="4" Grid.Column="1" Text="{x:Bind TaskId}" x:Phase="1" Margin="0,5,0,5"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -67,17 +74,15 @@
             <Rectangle Fill="Aquamarine" Width="1200" Height="100"></Rectangle>
 
             <ListView
-                x:Name="BaseExample"
-                ItemTemplate="{StaticResource ContactListViewTemplate}"
+                x:Name="TasksList"
+                ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
+                ItemTemplate="{StaticResource TaskListItemTemplate}"
                 BorderThickness="1"
                 BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
                 Width="350"
                 Height="400"
                 HorizontalAlignment="Left"
                 />
-
-            <!-- In this example, the ListView's ItemTemplate property is bound to a data template (shown below)
-called ContactListViewTemplate, defined in a Page.Resources section. -->
 
         </StackPanel>
     </Grid>

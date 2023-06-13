@@ -39,7 +39,7 @@ public class TaskEntity
         get; set;
     }
 
-    public List<TaskEntity> generateSampleData()
+    public static List<TaskEntity> GenerateSampleData()
     {
         var newId = 1;  
         return new List<TaskEntity>
@@ -51,7 +51,7 @@ public class TaskEntity
             new TaskEntity() {TaskId = newId++, TaskName = "Exercise", Summary = "", Detail = "", Completed= false },
             new TaskEntity() {TaskId = newId++, TaskName = "Pay bills", Summary = "", Detail = "", Completed= false },
             new TaskEntity() {TaskId = newId++, TaskName = "Watch sports", Summary = "", Detail = "Somebody has to do it!", Completed= false },
-            //new TaskEntity() {TaskId = newId++, TaskName = "", Summary = "", Detail = "", Completed= false },
+            //*for new*   new TaskEntity() {TaskId = newId++, TaskName = "", Summary = "", Detail = "", Completed= false },
         };
     }
 }
