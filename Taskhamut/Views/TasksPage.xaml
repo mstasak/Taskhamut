@@ -50,12 +50,21 @@
 
                 <!-- left side: Label, Searchbox, Category dropdowncheckboxlist, Task list (new, delete, etc) -->
                 <StackPanel Orientation="Vertical" BorderBrush="Blue" BorderThickness="2" Padding="20" Spacing="20">
-                    <TextBlock Text="nn Tasks" />
+                    <TextBlock Text="{x:Bind ViewModel.TaskCount(), Mode=OneWay}" />
                     <StackPanel Orientation="Horizontal" Margin="20" Spacing="20" VerticalAlignment="Top">
                         <TextBlock Text="placeholder: search" />
                         <TextBlock Text="placeholder: category filter" />
                     </StackPanel>
-                    <TextBlock Text="placeholder: tasks list..." />
+                    <ListView
+                x:Name="TasksList"
+                ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
+                ItemTemplate="{StaticResource TaskListItemTemplate}"
+                BorderThickness="1"
+                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                Width="350"
+                Height="400"
+                HorizontalAlignment="Left"
+                />
                     <TextBlock Text="placeholder: button bar [new][delete][random pick]" />
                 </StackPanel>
 
@@ -73,7 +82,7 @@
             </StackPanel>
             <Rectangle Fill="Aquamarine" Width="1200" Height="100"></Rectangle>
 
-            <ListView
+            <!--<ListView
                 x:Name="TasksList"
                 ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
                 ItemTemplate="{StaticResource TaskListItemTemplate}"
@@ -82,7 +91,7 @@
                 Width="350"
                 Height="400"
                 HorizontalAlignment="Left"
-                />
+                />-->
 
         </StackPanel>
     </Grid>
