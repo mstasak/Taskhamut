@@ -1,6 +1,6 @@
 # Taskhamut
 
-This single-project solution implements a fairly simple single page task list.  This will be a learning/practice project for me, but might provide a useful example resource to other learners.
+This solution implements a fairly simple single page task list.  This will be a learning/practice project for me, but might provide a useful example resource to other learners.
 
 Status: preliminary, nothing working yet
 
