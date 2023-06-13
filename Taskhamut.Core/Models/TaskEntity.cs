@@ -9,7 +9,7 @@ namespace Taskhamut.Core.Models;
 // Model for the SampleDataService. Replace with your own model.
 public class TaskEntity
 {
-    public int TaskID
+    public int TaskId
     {
         get; set;
     }
@@ -37,5 +37,21 @@ public class TaskEntity
     public ICollection<CategoryEntity>? Categories
     {
         get; set;
+    }
+
+    public List<TaskEntity> generateSampleData()
+    {
+        var newId = 1;  
+        return new List<TaskEntity>
+        {
+            new TaskEntity() {TaskId = newId++, TaskName = "Mow front", Summary = "Mow front yard", Detail = "defer if weather prevents", Completed= false },
+            new TaskEntity() {TaskId = newId++, TaskName = "Laundry", Summary = "Wash clothes", Detail = "include bedding, towels, dishtowels", Completed= false },
+            new TaskEntity() {TaskId = newId++, TaskName = "Wash Car", Summary = "", Detail = "", Completed= true },
+            new TaskEntity() {TaskId = newId++, TaskName = "Do Dishes", Summary = "", Detail = "", Completed= false },
+            new TaskEntity() {TaskId = newId++, TaskName = "Exercise", Summary = "", Detail = "", Completed= false },
+            new TaskEntity() {TaskId = newId++, TaskName = "Pay bills", Summary = "", Detail = "", Completed= false },
+            new TaskEntity() {TaskId = newId++, TaskName = "Watch sports", Summary = "", Detail = "Somebody has to do it!", Completed= false },
+            //new TaskEntity() {TaskId = newId++, TaskName = "", Summary = "", Detail = "", Completed= false },
+        };
     }
 }
