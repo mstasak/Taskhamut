@@ -15,5 +15,11 @@ public sealed partial class TasksPage : Page
     {
         ViewModel = App.GetService<TasksViewModel>();
         InitializeComponent();
+        //Loaded += TasksPage_Loaded; //present in Learn WINUI 3.0; causes error here; maybe handled by framework now?
+    }
+
+    private void btnDevAddTask_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewModel.AddRandomTask();
     }
 }

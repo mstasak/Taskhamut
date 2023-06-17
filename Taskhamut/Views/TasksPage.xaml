@@ -46,7 +46,7 @@
         <StackPanel Orientation="Vertical" Spacing="20">
             <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left"
                     Spacing="20">
-                <!--BorderBrush="Red" BorderThickness="1"-->
+                <!-- ... BorderBrush="Red" BorderThickness="1"> -->
 
                 <!-- left side: Label, Searchbox, Category dropdowncheckboxlist, Task list (new, delete, etc) -->
                 <StackPanel Orientation="Vertical" BorderBrush="Blue" BorderThickness="2" Padding="20" Spacing="20">
@@ -56,42 +56,52 @@
                         <TextBlock Text="placeholder: category filter" />
                     </StackPanel>
                     <ListView
-                x:Name="TasksList"
-                ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
-                ItemTemplate="{StaticResource TaskListItemTemplate}"
-                BorderThickness="1"
-                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
-                Width="350"
-                Height="400"
-                HorizontalAlignment="Left"
-                />
+                        x:Name="TasksList"
+                        SelectionMode="Single"
+                        SelectedItem="{x:Bind ViewModel.SelectedTask, Mode=TwoWay}"
+                        SelectionChanged="{x:Bind ViewModel.TaskSelectionChanged}"
+                        ItemsSource="{x:Bind ViewModel.Tasks}"
+                        ItemTemplate="{StaticResource TaskListItemTemplate}"
+                        BorderThickness="1"
+                        BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                        Width="350"
+                        Height="400"
+                        HorizontalAlignment="Left"
+                    />
                     <TextBlock Text="placeholder: button bar [new][delete][random pick]" />
                 </StackPanel>
 
                 <!-- right side: Label, Task Details, buttonbar -->
-                <StackPanel Orientation="Vertical" BorderBrush="Blue" BorderThickness="2" Padding="20" Spacing="20">
-                    <TextBlock Text="Selected Task Details" />
-                    <TextBlock Text="placeholder: task field summary" />
-                    <TextBlock Text="placeholder: task field description" />
-                    <TextBlock Text="placeholder: task field category" />
-                    <TextBlock Text="placeholder: task field completion status" />
-                    <TextBlock Text="placeholder: button bar [save][cancel]?" />
-                </StackPanel>
+                <Grid BorderBrush="Blue" BorderThickness="2" Padding="20" Width="950">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Selected Task Details" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Summary:" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Description:" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Category:" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Completion status:" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.Summary, Mode=TwoWay}" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.Detail, Mode=TwoWay}" />
+                    <!--<TextBox Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.CategoriesAsString, Mode=TwoWay}" />-->
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="in work..." />
+                    <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.DetailTaskHolder.Completed, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="placeholder: button bar [save][cancel]?" />
+                </Grid>
 
 
             </StackPanel>
             <Rectangle Fill="Aquamarine" Width="1200" Height="100"></Rectangle>
-
-            <!--<ListView
-                x:Name="TasksList"
-                ItemsSource="{x:Bind ViewModel.Tasks, Mode=OneWay}"
-                ItemTemplate="{StaticResource TaskListItemTemplate}"
-                BorderThickness="1"
-                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
-                Width="350"
-                Height="400"
-                HorizontalAlignment="Left"
-                />-->
+            <Button x:Name="btnDevAddTask" Content="Add a task" Click="btnDevAddTask_Click"/>
 
         </StackPanel>
     </Grid>

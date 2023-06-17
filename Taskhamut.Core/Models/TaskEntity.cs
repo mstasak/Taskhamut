@@ -9,6 +9,11 @@ namespace Taskhamut.Core.Models;
 // Model for the SampleDataService. Replace with your own model.
 public class TaskEntity
 {
+    public TaskEntity()
+    {
+        Categories = new List<CategoryEntity>();
+    }
+
     public int TaskId
     {
         get; set;
@@ -34,7 +39,7 @@ public class TaskEntity
         get; set;
     }
 
-    public ICollection<CategoryEntity>? Categories
+    public ICollection<CategoryEntity> Categories
     {
         get; set;
     }
