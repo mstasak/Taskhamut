@@ -101,7 +101,7 @@
 
             </StackPanel>
             <Rectangle Fill="Aquamarine" Width="1200" Height="100"></Rectangle>
-            <Button x:Name="btnDevAddTask" Content="Add a task" Click="btnDevAddTask_Click"/>
+            <Button x:Name="BtnDevAddTask" Content="Add a task" Click="BtnDevAddTask_Click"/>
 
         </StackPanel>
     </Grid>

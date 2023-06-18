@@ -56,7 +56,7 @@ public partial class TasksViewModel : ObservableRecipient
         if (SelectedTask != null)
         {
             DetailTaskHolder.Model = SelectedTask;
-            DetailTaskHolder.raiseAllModified();
+            DetailTaskHolder.RaiseAllModified();
             //SaveTaskIfNeeded(DetailTaskHolder);
             //DetailTaskHolder.TaskId = SelectedTask!.TaskId;
             //DetailTaskHolder.TaskName = SelectedTask!.TaskName;
@@ -66,7 +66,7 @@ public partial class TasksViewModel : ObservableRecipient
             //DetailTaskHolder.Categories = SelectedTask!.Categories;
         } else { 
             DetailTaskHolder.Model = NoSelectedTask;
-            DetailTaskHolder.raiseAllModified();
+            DetailTaskHolder.RaiseAllModified();
             //DetailTaskHolder.TaskId = 0;
             //DetailTaskHolder.TaskName = "<new>";
             //DetailTaskHolder.Summary = "";

@@ -55,7 +55,7 @@ public class ObservableTaskEntity : ObservableObject
         set => SetProperty(Model.Categories, value, Model, (model, Categories) => model.Categories = Categories);
     }
 
-    public void raiseAllModified() {
+    public void RaiseAllModified() {
         //OnPropertyChanged("");
         OnPropertyChanged(new PropertyChangedEventArgs(nameof(TaskId)));
         OnPropertyChanged(new PropertyChangedEventArgs(nameof(TaskName)));
