@@ -6,7 +6,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Taskhamut.Core.Models"
     xmlns:views="using:Taskhamut.Views"
-    mc:Ignorable="d" >
+    mc:Ignorable="d" 
+    >
+    
 
     <Page.Resources>
         <DataTemplate x:Key="TaskListItemTemplate" x:DataType="models:TaskEntity">
@@ -40,7 +42,7 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-
+    
     <Grid x:Name="ContentArea">
 
         <StackPanel Orientation="Vertical" Spacing="20">
@@ -101,7 +103,7 @@
 
             </StackPanel>
             <Rectangle Fill="Aquamarine" Width="1200" Height="100"></Rectangle>
-            <Button x:Name="BtnDevAddTask" Content="Add a task" Click="BtnDevAddTask_Click"/>
+            <Button x:Name="BtnDevAddTask" Content="Add a task" Click="{x:Bind ViewModel.BtnDevAddTask_Click}"/>
 
         </StackPanel>
     </Grid>

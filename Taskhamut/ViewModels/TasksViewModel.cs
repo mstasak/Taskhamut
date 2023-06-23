@@ -9,6 +9,9 @@ namespace Taskhamut.ViewModels;
 public partial class TasksViewModel : ObservableRecipient
 {
 
+    public MyDbContext DbContext {
+        get; set; } = new();
+
     public ObservableTaskEntity DetailTaskHolder { get; set; }
     public TaskEntity? SelectedTask
     {
@@ -25,13 +28,35 @@ public partial class TasksViewModel : ObservableRecipient
 
     public ObservableCollection<TaskEntity> Tasks { get; private set; } = new();
 
+    //TODO: implement change detection
+    public bool TasksUpdated => true;
+
+    //TODO: implement autosave setting
+    public bool PromptingRequired => true;
+
     public TasksViewModel()
     {
         //TODO: move this to a generate-on-demand method instead of always creating and holding in memory when not needed?  Sort of irrelevant,
         //as it will be deleted or disabled eventually.
         Tasks.Clear();
-        var sampleData = TaskEntity.GenerateSampleData();
-        foreach (var row in sampleData)
+        ////var sampleData = TaskEntity.GenerateSampleData(); for early dev
+        //var sampleData = DbContext.Tasks;
+        //foreach (var row in sampleData)
+        //{
+        //    Tasks.Add(row); //WOW: accidentally tried to use "Tasks.Append(row);" and it does not change Tasks, merely returns a modified copy of the list
+        //}
+
+        //seed the tasks table if empty
+        //TODO: remove
+        if (DbContext.Tasks.Count() == 0) {
+            var sampleData = TaskEntity.GenerateSampleData();
+            foreach (var row in sampleData) {
+                DbContext.Tasks.Add(row); //WOW: accidentally tried to use "Tasks.Append(row);" and it does not change Tasks, merely returns a modified copy of the list
+            }
+            DbContext.SaveChanges();
+        }
+
+        foreach (var row in DbContext.Tasks)
         {
             Tasks.Add(row); //WOW: accidentally tried to use "Tasks.Append(row);" and it does not change Tasks, merely returns a modified copy of the list
         }
@@ -48,6 +73,7 @@ public partial class TasksViewModel : ObservableRecipient
 
     public void TaskSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
+        DbContext.SaveChanges();
         SetDetailSection();
     }
 
@@ -83,8 +109,21 @@ public partial class TasksViewModel : ObservableRecipient
 
     public void AddRandomTask()
     {
-        Tasks.Add(new TaskEntity() { TaskId = Tasks.Count + 1, TaskName = "Play GT7", Summary = "", Detail = "", Completed = false });
+        var newTaskId = 1;
+        if (Tasks.Count > 0) {
+            newTaskId += Tasks.Max(t => t.TaskId);
+        }
+        DbContext.Tasks.Add(new TaskEntity() { TaskId = newTaskId, TaskName = $"Some new task # {newTaskId}", Summary = "", Detail = "", Completed = false });
+        DbContext.SaveChanges();
     }
 
+    
+    public void BtnDevAddTask_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+        AddRandomTask();
+    }
+
+    //~TasksViewModel() {
+    //    DbContext.SaveChanges();  // <-- did not work???
+    //}
 
 }
