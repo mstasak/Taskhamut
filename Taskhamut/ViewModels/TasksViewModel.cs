@@ -1,129 +1,101 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Taskhamut.Core.Models;
-using Windows.Data.Xml.Dom;
 using SelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs;
 
 namespace Taskhamut.ViewModels;
 
-public partial class TasksViewModel : ObservableRecipient
-{
+public partial class TasksViewModel : ObservableRecipient {
 
     public MyDbContext DbContext {
-        get; set; } = new();
+        get; set;
+    } = new();
 
-    public ObservableTaskEntity DetailTaskHolder { get; set; }
-    public TaskEntity? SelectedTask
-    {
+    public ObservableTaskEntity DetailTaskHolder {
+        get; set;
+    }
+    public TaskEntity? SelectedTask {
         get; set;
     }
 
-    private TaskEntity NoSelectedTask
-    {
-        get; 
-    } = new()
-    {
-        TaskName="(no task selected)"
+    private TaskEntity NoSelectedTask {
+        get;
+    } = new() {
+        TaskName = "(no task selected)"
     };
 
     public ObservableCollection<TaskEntity> Tasks { get; private set; } = new();
 
-    //TODO: implement change detection
-    public bool TasksUpdated => true;
+    public TasksViewModel() {
 
-    //TODO: implement autosave setting
-    public bool PromptingRequired => true;
-
-    public TasksViewModel()
-    {
-        //TODO: move this to a generate-on-demand method instead of always creating and holding in memory when not needed?  Sort of irrelevant,
-        //as it will be deleted or disabled eventually.
-        Tasks.Clear();
-        ////var sampleData = TaskEntity.GenerateSampleData(); for early dev
-        //var sampleData = DbContext.Tasks;
-        //foreach (var row in sampleData)
-        //{
-        //    Tasks.Add(row); //WOW: accidentally tried to use "Tasks.Append(row);" and it does not change Tasks, merely returns a modified copy of the list
-        //}
-
+#if DEBUG
+        //TODO: remove when no longer useful
         //seed the tasks table if empty
-        //TODO: remove
         if (DbContext.Tasks.Count() == 0) {
             var sampleData = TaskEntity.GenerateSampleData();
             foreach (var row in sampleData) {
-                DbContext.Tasks.Add(row); //WOW: accidentally tried to use "Tasks.Append(row);" and it does not change Tasks, merely returns a modified copy of the list
+                DbContext.Tasks.Add(row);
             }
             DbContext.SaveChanges();
         }
+#endif
 
-        foreach (var row in DbContext.Tasks)
-        {
+        foreach (var row in DbContext.Tasks) {
             Tasks.Add(row); //WOW: accidentally tried to use "Tasks.Append(row);" and it does not change Tasks, merely returns a modified copy of the list
         }
 
         DetailTaskHolder = new ObservableTaskEntity(NoSelectedTask);
-        SelectedTask = null;
-
-        //register observer to react when listview selection changes
-        //var observable = (IObservable<TaskEntity>?)SelectedTask;
-        //observable.Subscribe();
-        //PropertyChanged += TasksViewModel_PropertyChanged;
-
     }
 
-    public void TaskSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        DbContext.SaveChanges();
+    public void TaskSelectionChanged(object? sender, SelectionChangedEventArgs e) {
+        DbContext.SaveChanges(); //save changes, if any, from old selected task
         SetDetailSection();
     }
 
-    private void SetDetailSection()
-    {
-        if (SelectedTask != null)
-        {
-            DetailTaskHolder.Model = SelectedTask;
-            DetailTaskHolder.RaiseAllModified();
+    private void SetDetailSection() {
+        if (SelectedTask != null) {
             //SaveTaskIfNeeded(DetailTaskHolder);
-            //DetailTaskHolder.TaskId = SelectedTask!.TaskId;
-            //DetailTaskHolder.TaskName = SelectedTask!.TaskName;
-            //DetailTaskHolder.Summary = SelectedTask!.Summary;
-            //DetailTaskHolder.Detail = SelectedTask!.Detail;
-            //DetailTaskHolder.Completed = SelectedTask!.Completed;
-            //DetailTaskHolder.Categories = SelectedTask!.Categories;
-        } else { 
+            DetailTaskHolder.Model = SelectedTask; //this is a bindable wrapper around the selected task
+        } else {
             DetailTaskHolder.Model = NoSelectedTask;
-            DetailTaskHolder.RaiseAllModified();
-            //DetailTaskHolder.TaskId = 0;
-            //DetailTaskHolder.TaskName = "<new>";
-            //DetailTaskHolder.Summary = "";
-            //DetailTaskHolder.Detail = "";
-            //DetailTaskHolder.Completed = false;
-            //DetailTaskHolder.Categories = new List<CategoryEntity>();
         }
+        DetailTaskHolder.RaiseAllModified(); //push the new selection's values to the view
     }
 
-    public string TaskCount()
-    {
+    public string TaskCount() {
         return Tasks.Count.ToString() + " Tasks";
     }
 
-    public void AddRandomTask()
-    {
+    public void AddRandomTask() {
         var newTaskId = 1;
         if (Tasks.Count > 0) {
             newTaskId += Tasks.Max(t => t.TaskId);
         }
-        DbContext.Tasks.Add(new TaskEntity() { TaskId = newTaskId, TaskName = $"Some new task # {newTaskId}", Summary = "", Detail = "", Completed = false });
+        // Potential issue: different EF db providers may expect 0 or null values for IDs of new rows?
+        // For example, normally MSSQL disallows identity insert values iirc.
+        // SQLite tolerates a new unique id value
+        DbContext.Tasks.Add(
+            new TaskEntity() {
+                TaskId = newTaskId,
+                TaskName = $"Some new task # {newTaskId}",
+                Summary = "",
+                Detail = "",
+                Completed = false
+            });
         DbContext.SaveChanges();
     }
 
-    
+
     public void BtnDevAddTask_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
         AddRandomTask();
     }
 
-    //~TasksViewModel() {
-    //    DbContext.SaveChanges();  // <-- did not work???
-    //}
+    ~TasksViewModel() {
+        //    DbContext.SaveChanges();  // <-- did not work???
+        //    Put a SaveChanges in view codebehind's OnNavigationFrom() event handler
+        //    I don't really like leaving this non-functional, there may be other ways to miss
+        //    saving (for example by closing the app or powering down the system)
+        DbContext.Dispose();
+    }
 
 }
