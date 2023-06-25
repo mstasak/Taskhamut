@@ -83,6 +83,7 @@ public partial class TasksViewModel : ObservableRecipient {
                 Completed = false
             });
         DbContext.SaveChanges();
+        //TODO: make this the new task operation, and navigate to the newly added task; remove the dev dash area from view
     }
 
 

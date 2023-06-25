@@ -139,6 +139,8 @@ csharp_style_prefer_range_operator = true:suggestion
 csharp_style_prefer_tuple_swap = true:suggestion
 csharp_style_prefer_utf8_string_literals = true:suggestion
 csharp_style_deconstructed_variable_declaration = true:suggestion
+csharp_new_line_before_catch = false
+csharp_space_around_binary_operators = before_and_after
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
