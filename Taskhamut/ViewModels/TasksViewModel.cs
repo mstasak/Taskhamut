@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Taskhamut.Core.Models;
 using SelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs;
@@ -36,7 +37,7 @@ public partial class TasksViewModel : ObservableRecipient {
             foreach (var row in sampleData) {
                 DbContext.Tasks.Add(row);
             }
-            DbContext.SaveChanges();
+            SaveAllTasks();
         }
 #endif
 
@@ -45,6 +46,15 @@ public partial class TasksViewModel : ObservableRecipient {
         }
 
         DetailTaskHolder = new ObservableTaskEntity(NoSelectedTask);
+    }
+
+    public void SaveAllTasks() {
+        if (DbContext.ChangeTracker.HasChanges()) {
+            var saveResult = DbContext.SaveChanges();
+            Debug.WriteLine($"{saveResult} rows saved.");
+        } else { 
+            Debug.WriteLine("Nothing to save.");
+        }
     }
 
     public void TaskSelectionChanged(object? sender, SelectionChangedEventArgs e) {

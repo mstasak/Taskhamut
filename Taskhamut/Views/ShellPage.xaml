@@ -32,6 +32,7 @@
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
             IsSettingsVisible="False"
+            AllowFocusOnInteraction="True"
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
@@ -43,32 +44,32 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem x:Uid="Shell_Tasks" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.TasksViewModel">
+                <NavigationViewItem x:Uid="Shell_Tasks" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.TasksViewModel" AllowFocusOnInteraction="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Categories" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.CategoriesViewModel">
+                <NavigationViewItem x:Uid="Shell_Categories" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.CategoriesViewModel" AllowFocusOnInteraction="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Users" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.UsersViewModel">
+                <NavigationViewItem x:Uid="Shell_Users" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.UsersViewModel" AllowFocusOnInteraction="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Options" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.OptionsViewModel">
+                <NavigationViewItem x:Uid="Shell_Options" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.OptionsViewModel" AllowFocusOnInteraction="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_About" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.AboutViewModel">
+                <NavigationViewItem x:Uid="Shell_About" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.AboutViewModel" AllowFocusOnInteraction="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_Dev" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.DevViewModel">
+                <NavigationViewItem x:Uid="Shell_Dev" helpers:NavigationHelper.NavigateTo="Taskhamut.ViewModels.DevViewModel" AllowFocusOnInteraction="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>

@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Navigation;
 using Taskhamut.ViewModels;
 using Windows.Devices.PointOfService;
@@ -75,9 +77,17 @@ public sealed partial class TasksPage : Page {
     //}
 
     protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
-        ViewModel.DbContext.SaveChanges();
+        ViewModel.SaveAllTasks();
         base.OnNavigatingFrom(e);
     }
 
+    //private void Page_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+    //    //last ditch attempt to save changes
+    //    //UpdateSource();
+    //    txtSummary.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+    //    txtDetail.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+    //    ViewModel.SaveAllTasks();
+        
+    //}
 }
 

@@ -7,6 +7,7 @@
     xmlns:models="using:Taskhamut.Core.Models"
     xmlns:views="using:Taskhamut.Views"
     mc:Ignorable="d" 
+    Unloaded="Page_Unloaded"
     >
     
 
@@ -92,8 +93,8 @@
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Description:" />
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Category:" />
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="Completion status:" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.Summary, Mode=TwoWay}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.Detail, Mode=TwoWay}" />
+                    <TextBox x:Name="txtSummary" Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.Summary, Mode=TwoWay}" />
+                    <TextBox x:Name="txtDetail" Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.Detail, Mode=TwoWay}" />
                     <!--<TextBox Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.DetailTaskHolder.CategoriesAsString, Mode=TwoWay}" />-->
                     <TextBox Grid.Row="3" Grid.Column="1" Text="in work..." />
                     <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.DetailTaskHolder.Completed, Mode=TwoWay}" />
